@@ -1,0 +1,28 @@
+name: CSCI 1515 - Applied Cryptography
+output: build
+static_src: static
+static_dest: static
+
+partials:
+  header: views/partials/header.tmpl
+  post-header: views/partials/post-header.tmpl
+  footer: views/partials/footer.tmpl
+
+pages:
+  - title: Home
+    path: /
+    template: views/index.tmpl
+    data:
+      assignment: src/data/assignment.yaml
+      lecture: src/data/lecture.yaml
+      staff: src/data/staff.yaml
+
+collections:
+  - title: Assignment
+    path: /assignments
+    template: views/handout.tmpl
+    posts: src/docs/assignments
+  - title: Misc
+    path: /misc
+    template: views/handout.tmpl
+    posts: src/docs/misc

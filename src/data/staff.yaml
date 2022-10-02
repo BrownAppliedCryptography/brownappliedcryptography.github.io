@@ -1,0 +1,18 @@
+staff:
+  - name: Peihan Miao
+    role: Professor
+    cslogin: peihan
+    bio: ""
+    photo: peihan.jpg
+
+  - name: Jack Cheng
+    role: HTA
+    cslogin: jcheng
+    bio: ""
+    photo: jcheng.jpg
+
+  - name: Nick Young 🐝
+    role: HTA
+    cslogin: nyoung10
+    bio: "Hi! I'm from Vancouver and I enjoy climbing, mixology, and keyboards! Pronouns: he/him/his"
+    photo: nyoung10.jpg

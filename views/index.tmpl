@@ -1,0 +1,110 @@
+{{ partial header }}
+
+<main>
+    <section id="landing">
+        <div class="landing-container">
+            <div>
+                <h1 class="landing-title fun">CSCI 1515</h1>
+                <h2 class="landing-subtitle fun">Applied Cryptography</h2>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- INTRODUCTION -->
+    <section id="introduction">
+        <h1 tabindex="0">Introduction</h1>
+        <h2>Welcome to Applied Cryptography</h2>
+    </section>
+
+    
+    <!-- ASSIGNMENTS -->
+    <section id="assignments">
+        <h1 tabindex="0">Assignments</h1>
+        <table>
+            <tr>
+                <th>Homework</th>
+                <th>Out</th>
+                <th>In</th>
+            </tr>
+            {{ loop assignment.homeworks
+            <tr>
+                <td>${homework}</td>
+                <td>${out}</td>
+                <td>${in}</td>
+            </tr>
+            }}
+        </table>
+    </section>
+
+
+    <!-- LECTURES -->
+    <section id="lectures">
+        <h1 tabindex="0">Lectures</h1>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Topic</th>
+                <th>Recording</th>
+            </tr>
+            {{ loop lecture.lectures
+            <tr>
+                <td>${date}</td>
+                <td>${topic}</td>
+                <td>${recording}</td>
+            </tr>
+            }}
+        </table>
+    </section>
+
+
+    <!-- CALENDAR -->
+    <section id="calendar">
+        <h1 tabindex="0">Calendar</h1>
+        <p>
+            Zoom links are included in the Google Calendar event, as well as in the SignMeUp Queue.
+        </p>
+        <div class="iframe-container">
+            <iframe src="https://calendar.google.com/calendar/embed?src=c_s435lj4a3qpdm3m1pjh00fotec%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </section>
+
+
+    <!-- RESOURCES -->
+    <section id="resources">
+        <h1 tabindex="0">Resources</h1>
+        <h2>Quick Links</h2>
+        <ul>
+            <li><a href="static/files/syllabus.pdf">Syllabus</a></li>
+            <li><a href="misc/devenv">Development Environment Guide</a></li>
+            <li><a href="">EdStem</a></li>
+            <li><a href="">Panopto</a></li>
+        </ul>
+
+        <h2>Contact</h2>
+        <ul>
+            <li><a href="mailto:peihan_miao@brown.edu">peihan_miao@brown.edu</a></li>
+            <li><a href="mailto:cs1515headtas@lists.brown.edu">cs1515headtas@lists.brown.edu</a></li>
+            <li><a href="mailto:cs1515tas@lists.brown.edu">cs1515tas@lists.brown.edu</a></li>
+        </ul>
+    </section>
+
+
+    <!-- STAFF -->
+    <section id="staff">
+        <h1 tabindex="0">Staff</h1>
+
+        <div class="staff-tiling">
+            {{ loop staff.staff
+            <div class="staff-tile">
+                <img src="static/img/staff/${photo}" class="staff-photo"/>
+                <h2>${name}</h2>
+                <p>${role} | ${cslogin}</p>
+                <p>${bio}</p>
+            </div>
+            }}
+        </div>
+    </section>
+</main>
+
+{{ partial footer }}
