@@ -1,15 +1,15 @@
 staff:
   - name: <a href=https://sites.google.com/view/peihanmiao/>Peihan Miao</a>
     role: Professor
-    cslogin: peihan
+    cslogin: pmiao
     bio: "Hello! I work on cryptography, theory, and security. I'm excited about bridging the gap between theory and practice in cryptography. Pronouns: she/her/hers"
-    photo: peihan.jpg
+    photo: pmiao.jpg
 
   - name: Jack Cheng
     role: HTA
-    cslogin: jcheng
+    cslogin: jcheng46
     bio: ""
-    photo: jcheng.jpg
+    photo: jcheng46.jpg
 
   - name: Nick Young 🐝
     role: HTA
