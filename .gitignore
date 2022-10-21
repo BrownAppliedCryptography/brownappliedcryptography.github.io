@@ -5,3 +5,4 @@ build/
 *.log
 *.out
 *.synctex.gz
+*.DS_Store

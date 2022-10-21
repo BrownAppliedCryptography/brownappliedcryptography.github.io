@@ -30,7 +30,7 @@ html {
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: "Inconsolata", monospace;
     font-weight: 400;
     background-color: var(--color-white);
     margin: 0;
@@ -67,7 +67,7 @@ footer {
 }
 
 h1 {
-    font-family: "Inter", sans-serif;
+    font-family: "Inconsolata", monospace;
     font-weight: 800;
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
@@ -77,7 +77,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "Inter", sans-serif;
+    font-family: "Inconsolata", monospace;
     font-weight: 600;
 }
 
@@ -183,7 +183,7 @@ span.nav-link {
 }
 
 span.nav-link > a {
-    font-family: "Inter", sans-serif;
+    font-family: "Inconsolata", monospace;
     font-weight: 600;
     font-size: var(--fs-md);
     text-decoration: none;
@@ -241,7 +241,7 @@ span.hamburger {
 
     div.navholder-content > a {
         display: block;
-        font-family: "Inter", sans-serif;
+        font-family: "Inconsolata", monospace;
         font-weight: 600;
         font-size: var(--fs-lg);
         text-decoration-color: var(--color-accent);
@@ -306,7 +306,7 @@ td {
 }
 
 th {
-    font-family: "Inter", sans-serif;
+    font-family: "Inconsolata", monospace;
     font-size: var(--fs-md);
     background-color: var(--color-accent);
 }
