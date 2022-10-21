@@ -1,15 +1,15 @@
 staff:
   - name: Peihan Miao
     role: Professor
-    cslogin: peihan
+    cslogin: pmiao
     bio: ""
-    photo: peihan.jpg
+    photo: pmiao.jpg
 
   - name: Jack Cheng
     role: HTA
-    cslogin: jcheng
+    cslogin: jcheng46
     bio: ""
-    photo: jcheng.jpg
+    photo: jcheng46.jpg
 
   - name: Nick Young 🐝
     role: HTA
