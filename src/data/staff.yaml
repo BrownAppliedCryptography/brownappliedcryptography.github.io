@@ -1,8 +1,8 @@
 staff:
-  - name: Peihan Miao
+  - name: <a href=https://sites.google.com/view/peihanmiao/>Peihan Miao</a>
     role: Professor
     cslogin: peihan
-    bio: ""
+    bio: "Hello! I work on cryptography, theory, and security. I'm excited about bridging the gap between theory and practice in cryptography. Pronouns: she/her/hers"
     photo: peihan.jpg
 
   - name: Jack Cheng
