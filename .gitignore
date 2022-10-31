@@ -6,3 +6,4 @@ build/
 *.out
 *.synctex.gz
 *.DS_Store
+*.obsidian
