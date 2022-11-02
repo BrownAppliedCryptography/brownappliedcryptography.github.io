@@ -11,7 +11,7 @@ homeworks:
   - homework: Online Anonymous Voting
     out: Jan. 1
     in:  Jan. 1
-  - homework: Secure Two-Pary Computation
+  - homework: Secure Two-Party Computation
     out: Jan. 1
     in:  Jan. 1
   - homework: Private Information Retrieval

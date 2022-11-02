@@ -1,8 +1,7 @@
 ---
 title: Cipher
 name: cipher
-due: January 1 
-draft: "true"
+due: January 1
 ---
 
 Theme Song: <a href="https://www.youtube.com/watch?v=XAYhNHhxN0A">Mission Impossible Main Theme</a>
@@ -113,7 +112,7 @@ in implementing AES myself.
 
 ---
 
-# Assignment Spec
+# Assignment Specification
 
 ## C++
 
@@ -125,11 +124,11 @@ We use `cmake` in this course to manage builds. More information about how to us
 
 ## Ciphers
 
-In this assignment you will implement four cryptographic protocols: El Gamal encryption, RSA encryption, DSA signatures, and Diffie-Hellman key exchange. Using what you know about these schemes from class and from the descriptions above, implement the function headers in `src/cipher.cxx`.
+In this assignment you will implement four cryptographic protocols: Diffie-Hellman key exchange, El Gamal encryption, RSA encryption, and DSA signatures. Using what you know about these schemes from class and from the descriptions above, implement the function headers in `src/cipher.cpp`. We recommend doing them in the order they are introduced, but there is no best way to complete this assignment.
 
 ## Testing
 
-You may write tests in `test/test.cxx` in the Doctest format. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.
+You may write tests in `test/test.cpp` in the Doctest format. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.
 
 It may be difficult to find suitable system parameters for some of the ciphers. As such, we provide system parameters below that we expect to work.
 
