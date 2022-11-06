@@ -39,6 +39,6 @@ Please note: you may NOT change any of the function headers defined in the stenc
 
 # FAQ
 
-- **What should I use for <datatype>?**
+- **What should I use for `datatype`?**
 
 ---
