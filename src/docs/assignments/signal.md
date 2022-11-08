@@ -32,6 +32,12 @@ An important aspect of communication is message integrity; we want to be sure th
 
 We need to be careful about the order in which we apply our cryptographic primitives. In particular; should we compute MACs on plaintext then encrypt the plaintext, or should we encrypt our plaintext first, and apply our MAC on the resulting ciphertext? It turns out that only one of these is secure; we leave it as an exercise to find out why.
 
+## Putting it all together
+
+The following diagram explains how the protocol works together.
+
+![/static/img/handout/signal/architecture.png](Architecture)
+
 ---
 
 # Assignment Specification
@@ -59,6 +65,7 @@ In particular, you should implement the following functions:
 
 Some tips:
 - Diffie-Hellman key exchange takes a few messages; first, the parties need to agree on system parameters, then they need to exchange public values. It doesn't matter whether the server or the client generates and sends the Diffie-Hellman system parameters; however, to interoperate with our code, the connecting client (the client that called `connect`) should generate and send the parameters.
+- You'll notice that the `message` struct has a Diffie-Hellman public value in it. You should detect when this value has changed from the last time you received a message; this allows clients to change their keys when they feel that a key has been compromised. This will cause issues with out-of-order messages, which you are not expected to handle.
 - TODO: Explain SecByteBlock
 - TODO: Others? 
 
