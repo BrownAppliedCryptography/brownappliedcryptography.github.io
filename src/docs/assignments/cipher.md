@@ -4,7 +4,7 @@ name: cipher
 due: January 1
 ---
 
-Theme Song: <a href="https://www.youtube.com/watch?v=XAYhNHhxN0A">Mission Impossible Main Theme</a>
+Theme Song: [Mission Impossible Main Theme](https://www.youtube.com/watch?v=XAYhNHhxN0A)
 
 Welcome to CSCI 1515! Throughout the semester, you'll implement numerous systems using production-grade cryptographic primitives. This assignment is meant to get you up to speed with C++ and the low-level primitives you'll spend the semester with. If you ever have any questions, don't hesitate to ask a TA for support!
 
@@ -136,7 +136,9 @@ Throughout this course, we will use C++. We use C++ because it is the language i
 
 Our development environment makes it very easy for you to write and build C++. In terms of syntax, we recommend [cppreference](https://en.cppreference.com/w/) and [learncpp](https://www.learncpp.com/) as good resources to help you learn. In general, we won't be using very advanced C++ features, but it is good to understand basic syntax.
 
-## Getting Started
+---
+
+# Getting Started
 
 First, make sure you have a local development environment set up! See the [development environment guide](/misc/devenv) for help, and let us know via EdStem or TA Hours if you need help getting your dev environment set up.
 
