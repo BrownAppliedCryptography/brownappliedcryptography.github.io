@@ -17,7 +17,7 @@ In this assignment you'll be implementing toy versions of some classic ciphers. 
 
 ## Elementary Number Theory
 
-The following is an overview of the number theory necessary to understand the encryption schemes in this homework. You can safely skip this section if you're already familiar with number theory, or if you're more comfortable engaging with the ciphers directly (we'll use language and terminology from this section, but not deeply).
+The following is an overview of the number theory necessary to understand the encryption schemes in this homework. You can safely skip this section if you're already familiar with number theory, or if you're more comfortable engaging with the ciphers directly (we'll use language and terminology from this section, but not deeply). **This section may seem intimidating; to reiterate, you do not need to understand this math deeply to implement this assignment, and you certainly don't need it for the rest of the course.**
 
 ### Divisibility
 
@@ -114,25 +114,27 @@ in implementing AES myself.
 
 # Assignment Specification
 
+Please note: you may NOT change any of the function headers defined in the stencil. Doing so will break the autograder; if you don't understand a function header, please ask us what it means and we'll be happy to clarify.
+
+## Ciphers
+
+In this assignment you will implement four cryptographic protocols: Diffie-Hellman key exchange, El Gamal encryption, RSA encryption, and DSA signatures. Using what you know about these schemes from class and from the descriptions above, implement the function headers in `src/cipher.cpp`. We recommend doing them in the order they are introduced, but there is no best way to complete this assignment. In particular, you should edit the following functions:
+
+- `long diffie_hellman(long p, long g, long a, long B)`
+- `std::tuple<long, long> elgamal_encrypt(long p, long g, long A, long m)`
+- `long elgamal_decrypt(long p, long g, long a, long c1, long c2)`
+- `long rsa_encrypt(long n, long e, long m)`
+- `long rsa_decrypt(long n, long d, long c)`
+- `std::tuple<long, long> dsa_sign(long p, long q, long g, long a, long m)`
+- `bool dsa_verify(long p, long q, long g, long A, long m, long s1, long s2)`
+
+Remember to use the provided functions to compute GCDs, inverses, and powers. Using outside functions for any of the protocols isn't permitted.
+
 ## C++
 
 Throughout this course, we will use C++. We use C++ because it is the language in which most cryptographic libraries are written, especially those used later in the course. Moreover, it is a highly performant language that affords us great control over the systems we build.
 
 Our development environment makes it very easy for you to write and build C++. In terms of syntax, we recommend [cppreference](https://en.cppreference.com/w/) and [learncpp](https://www.learncpp.com/) as good resources to help you learn. In general, we won't be using very advanced C++ features, but it is good to understand basic syntax.
-
-We use `cmake` in this course to manage builds. More information about how to use it is in the Getting Started section below; you won't need to know any cmake to participate in the course, but be aware that it exists and will be used to build your projects.
-
-## Ciphers
-
-In this assignment you will implement four cryptographic protocols: Diffie-Hellman key exchange, El Gamal encryption, RSA encryption, and DSA signatures. Using what you know about these schemes from class and from the descriptions above, implement the function headers in `src/cipher.cpp`. We recommend doing them in the order they are introduced, but there is no best way to complete this assignment.
-
-## Testing
-
-You may write tests in `test/test.cpp` in the Doctest format. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.
-
-It may be difficult to find suitable system parameters for some of the ciphers. As such, we provide system parameters below that we expect to work.
-
-TODO: Find system parameters.
 
 ## Getting Started
 
@@ -140,10 +142,26 @@ First, make sure you have a local development environment set up! See the [devel
 
 To get started, get your stencil repository [here]() and clone it into the `devenv/home` folder. From here you can access the code from both your computer and from the Docker container.
 
-Please note: you may NOT change any of the function headers defined in the stencil. Doing so will break the autograder; if you don't understand a function header, please ask us what it means and we'll be happy to clarify.
+## Running
+
+We use `cmake` in this course to manage builds. You won't need to know any cmake beyond what we detail in this section, but be aware that it exists and will be used to build your projects.
+
+To build the project, `cd`  into the `build` folder and run `cmake ..`. This will generate a set of Makefiles building the whole project. From here, you can run `make` to generate a binary you can run, `./cipher`, and `make check` to run any tests you write in the `test` folder.
+
+If you would like to add new files (e.g. to hold helper functions), make sure to include them in the `CMakeLists.txt` file s othat `cmake` can pick up on the new files.
+
+## Testing
+
+You may write tests in any of the `test/**.cpp` files in the Doctest format. If you want to add any new tests, make sure to add the file in line 4 of `test/CMakeLists.txt` so that `cmake` can pick up on the new files. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.
+
+It may be difficult to find suitable system parameters for some of the ciphers. Moreover, because we are using `long`s to store our values, integer overflow is a real problem. To combat this, we provide some system parameters below that we expect to work.
+
+TODO: Find system parameters.
 
 ---
 
 # FAQ
+
+- **That's a lot of math; will the rest of the course have any math?** : No, this course is a programming course. The necessary math will be included in each handout, but you will not be required to use it deeply; only to understand it in the context of cryptography and security.
 
 ---
