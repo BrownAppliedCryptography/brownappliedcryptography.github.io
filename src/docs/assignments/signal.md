@@ -36,7 +36,7 @@ We need to be careful about the order in which we apply our cryptographic primit
 
 The following diagram explains how the protocol works together.
 
-![/static/img/handout/signal/architecture.png](Architecture)
+![Architecture](/static/img/handout/signal/architecture.png)
 
 ---
 
