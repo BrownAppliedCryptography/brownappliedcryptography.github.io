@@ -71,6 +71,8 @@ The following roadmap should help you organize concerns into a sequence:
 - Protect message integrity using HMAC authentication code.
 
 In particular, you should implement the following functions:
+- `Message encrypt(std::string plaintext)`
+- `std::tuple<std::string, bool> decrypt(Message ciphertext)`
 - `void Client::run(std::string command)`
 - `void Client::listenForPublicKey()`
 - `void Client::receiveThread()`
