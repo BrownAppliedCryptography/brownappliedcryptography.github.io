@@ -127,6 +127,8 @@ To build the project, `cd`  into the `build` folder and run `cmake ..`. This wil
 
 If you would like to add new files (e.g. to hold helper functions), make sure to include them in the `CMakeLists.txt` file s othat `cmake` can pick up on the new files.
 
+TODO: Usage details
+
 ## Testing
 
 You may write tests in any of the `test/**.cpp` files in the Doctest format. If you want to add any new tests, make sure to add the file in line 4 of `test/CMakeLists.txt` so that `cmake` can pick up on the new files. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.

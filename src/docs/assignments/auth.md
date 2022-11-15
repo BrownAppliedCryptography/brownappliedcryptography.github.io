@@ -84,7 +84,7 @@ To get started, get your stencil repository [here]() and clone it into the `deve
 
 ## Running
 
-To build the project, `cd`  into the `build` folder and run `cmake ..`. This will generate a set of Makefiles building the whole project. From here, you can run `make` to generate a binary you can run, `./user` or `./server` or `./2fa`, and `make check` to run any tests you write in the `test` folder.
+To build the project, `cd`  into the `build` folder and run `cmake ..`. This will generate a set of Makefiles building the whole project. From here, you can run `make` to generate a binary you can run, `./auth_user` or `./auth_server` or `./auth_2fa`, and `make check` to run any tests you write in the `test` folder.
 
 If you would like to add new files (e.g. to hold helper functions), make sure to include them in the `CMakeLists.txt` file s othat `cmake` can pick up on the new files.
 
