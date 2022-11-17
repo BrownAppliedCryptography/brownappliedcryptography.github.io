@@ -1,6 +1,6 @@
 ---
 title: Cipher - Homework
-name: auth
+name: cipher-homework
 due: January 1 
 ---
 

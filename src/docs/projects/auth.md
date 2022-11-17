@@ -39,16 +39,16 @@ Please note: you may NOT change any of the function headers defined in the stenc
 ## Functionality
 
 You will primarily need to edit `drivers/crypto_driver.cxx` and `pkg/client.cxx`. The following is an overview of relevant files:
-- `cmd/user.cxx` TODO:
-- `cmd/server.cxx` TODO:
-- `cmd/2fa.cxx` TODO:
+- `cmd/user.cxx` is the main entrypoint for the `auth_user` binary. It calls the `User` class.
+- `cmd/server.cxx` is the main entrypoint for the `auth_server` binary. It calls the `Server` class.
+- `cmd/2fa.cxx` is the main entrypoint for the `auth_2fa` binary. It calls the `2FA` class.
 - `drivers/cli_driver.cxx` implements a CLI that prints messages out to the screen.
 - `drivers/crypto_driver.cxx` contains all of the cryptographic protocols we use in this assignment.
 - `drivers/network_driver.cxx` contains a class that sends and receives streams of bytes using TCP. 
 - `drivers/storage_driver.cxx` contains all of the cryptographic protocols we use in this assignment.
-- `pkg/user.cxx` TODO:
-- `pkg/server.cxx` TODO:
-- `pkg/2fa.cxx` TODO:
+- `pkg/user.cxx` Implements the `User` class.
+- `pkg/server.cxx` Implements the `Server` class.
+- `pkg/2fa.cxx` Implements the `2FA` class.
 - `pkg/messages.hpp` contains structs for each type of message you should expect to send and receive and `structures.cxx` contains the serialize and deserialize functions for these structs.
 
 The following roadmap should help you organize concerns into a sequence:
@@ -63,12 +63,16 @@ Some tips:
 ## Support Code
 
 The following is an overview of the functionality that each support code file provides.
-- TODO:
+- `drivers/storage_driver` implements two classes; one to manage a database connection and one to handle reading and writing data to a file.
+- Everything else from prior assignments is unchanged.
 
 ## Libraries: CryptoPP
 
 You may find the following wiki pages useful during this assignment:
-- TODO:
+- [CryptoPP DSA(https://www.cryptopp.com/wiki/Digital_Signature_Algorithm)
+- [CryptoPP Hash Functions(https://www.cryptopp.com/wiki/Hash_Functions)
+- [CryptoPP SHA-256(https://www.cryptopp.com/wiki/SHA2)
+- [CryptoPP Random Number Generators(https://www.cryptopp.com/wiki/RandomNumberGenerator)
 
 ---
 

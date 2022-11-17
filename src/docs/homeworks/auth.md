@@ -1,19 +1,19 @@
 ---
 title: Auth - Homework
-name: auth
+name: auth-homework
 due: January 1 
 ---
 
 The following questions will relate to the Auth project. Please answer the following questions and submit them as a PDF to Gradescope.
 
-# Auth Security
+# 1) Auth Security
 
 In this problem we'll pick apart some of the details in the Auth protocol and justify their security.
 
  1) In the key exchange step between the user and the server, the user sends public value $$g^a$$ and the server sends back its public value $$g^b$$ alongside the public value it received, with a signature computed on both. Explain an attack that could arise if the server did not sign both the user's public value alongside their (the server's) public value.
  2) Explain why the setup we have is sufficient; that is, that the user doesn't need to sign anything and that the server doesn't need to send back any more information. You can assume that the user has access to an `ABORT` function it can use to signal to the server to drop the session.
 
-# Hash^2
+# 2) Secure Storage
 
 Our password storage scheme is designed to protect against any computationally bounded adversary that may have corrupted our server or storage from gaining information about user passwords or wrongfully authenticating with our server. Given a (collision-resistant) hash function $$H$$ and a password $$p$$, the following is how we register and login:
 
@@ -26,7 +26,7 @@ TODO: These questions could be posed better.
 - Explain what could happen if the server only stored $$c$$ instead of hashing it again to obtain and store $$c'$$. Remember that our adversary may have access to our storage and compute.
 - Explain what could happen if the client sent an encryption of $$p$$ instead of hashing it. Remember that our adversary may have access to our storage and compute.
 
-# Chain Trust
+# 3) Delegated Trust
 
 The way that our authentication scheme works is that since we trust the server, the server can **delegate trust** to others that it trusts, allowing us to verify the identity of a third-party without consulting directly with the server. 
 

@@ -1,6 +1,6 @@
 ---
 title: Signal - Homework
-name: auth
+name: signal-homework
 due: January 1 
 ---
 
