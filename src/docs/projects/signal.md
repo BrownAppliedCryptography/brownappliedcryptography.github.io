@@ -79,12 +79,12 @@ In particular, you should implement the following functions:
 - `void Client::sendThread()`
 - `DHParams CryptoDriver::generateParams()`
 - `std::pair<SecByteBlock, SecByteBlock> CryptoDriver::initialize(DHParams params)`
-- `void CryptoDriver::generateSharedKeyDH(CryptoPP::SecByteBlock otherKey)`
-- `void CryptoDriver::generateSharedKeyECB()`
-- `std::string CryptoDriver::ECBencrypt(std::string plaintext)`
-- `std::string CryptoDriver::ECBdecrypt(std::string ciphertext)`
-- `std::string CryptoDriver::HMACgenerate(std::string ciphertext)`
-- `bool CryptoDriver::HMACverify(std::string ciphertext, std::string mac)`
+- `void CryptoDriver::DH_generateSharedKey(CryptoPP::SecByteBlock otherKey)`
+- `void CryptoDriver::AES_generateSharedKey()`
+- `std::string CryptoDriver::AES_encrypt(std::string plaintext)`
+- `std::string CryptoDriver::AES_decrypt(std::string ciphertext)`
+- `std::string CryptoDriver::HMAC_generate(std::string ciphertext)`
+- `bool CryptoDriver::HMAC_verify(std::string ciphertext, std::string mac)`
 
 Some tips:
 - Most of the code you'll be writing in this assignment will be similar to that in the links provided in the Library section below. We highly recommend perusing those wikis before starting.
