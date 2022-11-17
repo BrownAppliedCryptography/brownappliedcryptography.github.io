@@ -6,11 +6,13 @@ due: January 1
 
 Theme Song: [Who Am I?](https://www.youtube.com/watch?v=KPoCMd2DYJo)
 
-In this assignment, you'll 
+In this assignment, you'll extend the secure communication protocol from last class to build a secure server-client authentication system. In particular, you'll explore the ways in which we can use digital signatures to expand our circle of trust and be sure that nobody is pretending to be someone they're not.
 
 ---
 
 # Background Knowledge
+
+In this assignment, you'll build a secure authentication platform. There are three programs involved; a server, a client, and a 2fa applet. The server 
 
 ## Digital Signatures
 
@@ -24,7 +26,7 @@ In this assignment, you'll
 
 The following diagram explains how the protocol works together.
 
-![Architecture](/static/img/handout/signal/architecture.png)
+![Architecture]()
 
 In short, we proceed in 
 
