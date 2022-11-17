@@ -1,20 +1,20 @@
 homeworks:
-  - homework: Cipher
+  - homework: Basic Cryptographic Schemes
     out: Jan. 1
     in:  Jan. 1
-  - homework: Double Ratchet
+  - homework: Secure Messaging
     out: Jan. 1
     in:  Jan. 1
-  - homework: IAM
+  - homework: Secure Authentication
     out: Jan. 1
     in:  Jan. 1
-  - homework: Ballot
+  - homework: Online Anonymous Voting
     out: Jan. 1
     in:  Jan. 1
-  - homework: Yao
+  - homework: Secure Two-Party Computation
     out: Jan. 1
     in:  Jan. 1
-  - homework: Query
+  - homework: Private Information Retrieval
     out: Jan. 1
     in:  Jan. 1
   - homework: Final Project
