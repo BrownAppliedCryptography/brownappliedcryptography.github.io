@@ -111,12 +111,6 @@ You may find the following wiki pages useful during this assignment:
 - [CryptoPP AES](https://www.cryptopp.com/wiki/Advanced_Encryption_Standard)
 - [CryptoPP HMAC](https://www.cryptopp.com/wiki/HMAC)
 
-## Written Response
-
-Please respond to the following questions in your `README`.
-- Should we MAC-then-Encrypt or Encrypt-then-MAC? Why?
-- Describe a man-in-the-middle attack that compromises the security of our application. How should we solve it?
-
 ---
 
 # Getting Started

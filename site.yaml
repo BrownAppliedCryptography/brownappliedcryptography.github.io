@@ -18,10 +18,14 @@ pages:
       staff: src/data/staff.yaml
 
 collections:
-  - title: Assignment
-    path: /assignments
+  - title: Project
+    path: /projects
     template: views/handout.tmpl
-    posts: src/docs/assignments
+    posts: src/docs/projects
+  - title: Homework
+    path: /homeworks
+    template: views/handout.tmpl
+    posts: src/docs/homeworks
   - title: Misc
     path: /misc
     template: views/handout.tmpl

@@ -70,14 +70,6 @@ The following is an overview of the functionality that each support code file pr
 You may find the following wiki pages useful during this assignment:
 - TODO:
 
-## Written Response
-
-Please respond to the following questions in your `README`.
-- Why are we double-hashing password to store? TODO: Question
-- What would be the implications of allowing users to further sign new certificates for other users?
-- Explain an attack that could arise if the server did not send back the user's public value alongside their (the server's) public value.
-- TODO:
-
 ---
 
 # Getting Started
