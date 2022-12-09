@@ -16,9 +16,11 @@ We wish to ensure that messages we send aren't tampered with in transit or forge
 
 **Method 3 (Encrypt-then-MAC)**: First, we encrypt the message $$c = E(s, m)$$ and then generate a MAC on the ciphertext $$t = MAC(s, c)$$. To decrypt and verify we check that $$t == MAC(s, c)$$, then obtain the message $$m = D(s, c)$$.
 
+TODO: Explain better what tools are at disposal
+
 1) Explain why MAC-then-encrypt is vulnerable to an attack on ciphertext integrity.
 2) Explain why Encrypt-and-MAC is vulnerable to an attack on message security.
-3) Explain why Encrypt-then-MAC provides both ciphertext and plaintext integrity.
+3) Explain why Encrypt-then-MAC is not vulnerable to either attack described above.
 
 
 # 2) Who-in-the-Where?
@@ -26,7 +28,6 @@ We wish to ensure that messages we send aren't tampered with in transit or forge
 Our protocol so far ensures that two parties can establish a shared secret, but it doesn't ensure that we know exactly who we're talking to. Indeed, an adversary could pretend to be who we're talking to and we would be none the wiser.
 
 1) Describe a man-in-the-middle attack that compromises the security of our application.
-2) Propose a mechanism for protecting against this attack. You can assume that all parties have access to a trusted public file store, or some way of putting data up so that anyone can read it.
 
 
 # 3) What, again?

@@ -91,7 +91,7 @@ You may find the following wiki pages useful during this assignment:
 
 # Getting Started
 
-To get started, get your stencil repository [here]() and clone it into the `devenv/home` folder. From here you can access the code from both your computer and from the Docker container.
+To get started, get your stencil repository [here](https://classroom.github.com/a/32hHmLcR) and clone it into the `devenv/home` folder. From here you can access the code from both your computer and from the Docker container.
 
 ## Running
 

@@ -16,3 +16,27 @@ staff:
     cslogin: nyoung10
     bio: "Hi! I'm from Vancouver and I enjoy climbing, mixology, and keyboards! Pronouns: he/him/his"
     photo: nyoung10.jpg
+
+  - name: Anna Wei 🍃
+    role: UTA
+    cslogin: qwei3
+    bio: "CS, math, dance, creative writing, nature, poetry, music, photography!"
+    photo: qwei3.jpg
+
+  - name: Jiahua Chen 🐫
+    role: UTA
+    cslogin: jchen345
+    bio: "heya! I'm a junior studying math+computer science."
+    photo: jchen345.jpg
+
+  - name: Ocean Pak 🌊
+    role: UTA
+    cslogin: cpak4
+    bio: "halo! I'm Ocean, a senior from Hong Kong studying comp sci. You'll probably find me snacking, sleeping, climbing, listening to cantopop and playing board and card games."
+    photo: cpak4.jpg
+
+  - name: Sudatta Hor 😈
+    role: UTA
+    cslogin: shor1
+    bio: "Hi! I'm Sudatta, a third-year concentrating in Mathematics-Computer Science and Physics. I'm interested in ML, cryptography, and quantum computing research. Outside of class, I enjoy boxing and eating ramen."
+    photo: shor1.jpg

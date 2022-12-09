@@ -12,7 +12,7 @@ Welcome to CSCI 1515! Throughout the semester, you'll implement numerous systems
 
 # Background Knowledge
 
-In this assignment you'll be implementing toy versions of some classic ciphers. In order to fully understand why the ciphers are correct and secure, we review some of the number theory underlying these constructions. Don't worry; the rest of the course won't rely on a deep understanding of the math behind these ciphers. Critically, we don't go over any advanced or involved proofs in this handout or course. If you are interested in the number theory, we recommend reading Appendix A of the course textbook *A Graduate Course in Cryptography*. It is, however, crucial that you understand the purpose and use of each cipher, and knowing how they work under the hood can help you gain some of that understanding.
+In this assignment you'll be implementing toy versions of some classic protocols. In order to fully understand why these protocols are correct and secure, we review some of the number theory underlying these constructions. Don't worry; the rest of the course won't rely on a deep understanding of the math behind these ciphers. Critically, we don't go over any advanced or involved proofs in this handout or course. If you are interested in the number theory, we recommend reading Appendix A of the course textbook *A Graduate Course in Cryptography*. It is, however, crucial that you understand the purpose and use of each cipher, and knowing how they work under the hood can help you gain some of that understanding.
 
 
 ## Elementary Number Theory
@@ -142,7 +142,7 @@ Our development environment makes it very easy for you to write and build C++. I
 
 First, make sure you have a local development environment set up! See the [development environment guide](/misc/devenv) for help, and let us know via EdStem or TA Hours if you need help getting your dev environment set up.
 
-To get started, get your stencil repository [here]() and clone it into the `devenv/home` folder. From here you can access the code from both your computer and from the Docker container.
+To get started, get your stencil repository [here](https://classroom.github.com/a/ljae0sqs) and clone it into the `devenv/home` folder. From here you can access the code from both your computer and from the Docker container.
 
 ## Running
 
