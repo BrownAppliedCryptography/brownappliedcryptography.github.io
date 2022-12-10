@@ -12,34 +12,39 @@ Welcome to CSCI 1515! Throughout the semester, you'll implement numerous systems
 
 # Background Knowledge
 
-In this assignment you'll be implementing toy versions of some classic protocols. In order to fully understand why these protocols are correct and secure, we review some of the number theory underlying these constructions. Don't worry; the rest of the course won't rely on a deep understanding of the math behind these ciphers. Critically, we don't go over any advanced or involved proofs in this handout or course. If you are interested in the number theory, we recommend reading Appendix A of the course textbook *A Graduate Course in Cryptography*. It is, however, crucial that you understand the purpose and use of each cipher, and knowing how they work under the hood can help you gain some of that understanding.
+In this assignment you'll be implementing a few classic cryptographic protocols. In order to fully understand why these protocols are correct and secure, we review some of the number theory underlying these constructions. Don't worry; the rest of the course won't rely on a deep understanding of the math behind these protocols. Critically, we don't go over any advanced or involved proofs in this handout or course; rather, we introduce the results that are useful and ask that you take them at face value. If you are interested in the number theory, we recommend reading Appendix A of the course textbook *A Graduate Course in Cryptography*. It is, however, crucial that you understand the purpose and use of each protocol, and knowing how they work under the hood can help you gain some of that understanding.
 
 
 ## Elementary Number Theory
 
-The following is an overview of the number theory necessary to understand the encryption schemes in this homework. You can safely skip this section if you're already familiar with number theory, or if you're more comfortable engaging with the ciphers directly (we'll use language and terminology from this section, but not deeply). **This section may seem intimidating; to reiterate, you do not need to understand this math deeply to implement this assignment, and you certainly don't need it for the rest of the course.**
+The following is an overview of the number theory necessary to understand the encryption protocols in this homework. You can safely skip this section if you're already familiar with number theory, or if you're more comfortable engaging with the protocols directly (we'll use language and terminology from this section, but not deeply). **This section may seem intimidating; to reiterate, you do not need to understand this math deeply to implement this assignment, and you certainly don't need it for the rest of the course.**
 
 ### Divisibility
 
-Consider two integers $a$ and $b$. We say that $a$ **divides** $b$ if there exists some other integer, $c$, such that $ac = b$. We denote $a$ divides $b$ as $a \mid b$. This notion of divisibility by a particular integer $m$ can generalize to categorize all integers by considering remainders under division by $m$. Given some integers $a, b$. We say that $a$ and $b$ are **congruent mod $m$** if there exists some integer $k$ such that $a + km = b$. Equivalently, it means that $a$ and $b$ differ by a multiple of $m$, or that when divided by $m$, they yield the same remainder. We write $a \equiv b \text{ mod } m$ when this is the case.
-
-### Groups
-
-To work with some theorems more nicely in general, we introduce the notion of a group. A **group**, in short, is a set $G$ (in this case, the classes of integers that have the same remainder modulo $m$) armed with an operation $\cdot$ such that there exists some identity element (0 under addition and 1 under multiplication), the operation is associative (true for addition and multiplication), and every element has an inverse ($-a$ for any $a$ under addition). The set of integers modulo $m$ under addition, denoted $\mathbb{Z}_m$, is a group. It happens to be that the set of integers modulo $m$ under multiplication, denoted $\mathbb{Z}_m^*$, is not typically a group; however, if $m$ is prime, then it is. To see why, we finish off the characterization above by showing that all elements have inverses.
+Consider two integers $a$ and $b$. We say that $a$ **divides** $b$ if there exists some other integer, $c$, such that $ac = b$. We denote $a$ divides $b$ as $a \mid b$. This notion of divisibility by a particular integer $m$ can generalize to categorize all integers by considering remainders under division by $m$. Given some integers $a, b$. We say that $a$ and $b$ are **congruent mod $m$** if there exists some integer $k$ such that $a + km = b$. In other words, it means that $a$ and $b$ differ by a multiple of $m$, or that when divided by $m$, they yield the same remainder. We write $a \equiv b \text{ mod } m$ when this is the case.
 
 ### GCDs
 
-We take a brief aside to consider **greatest common divisors**, or GCDs for short. Given two integers $a, b$, the GCD of $a$ and $b$ is the largest number $d$ such that $d \mid a$ and $d \mid b$. We say that two numbers are **coprime** when their GCD is 1. Calculating the GCD of two numbers can be done efficiently using the [Euclidean Algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm), and calculating numbers $s, t$ such that $sa + tb = gcd(a, b)$ can be done efficiently using the [Extended Euclidean Algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm). We eschew a detailed explanation of either algorithm in favor of the Wikipedia articles.
+Recall **greatest common divisors**, or GCDs for short. Given two integers $a, b$, the GCD of $a$ and $b$ is the largest integer $d$ such that $d \mid a$ and $d \mid b$. We say that two integers are **coprime** when their GCD is 1. Calculating the GCD of two integers can be done efficiently using the [Euclidean Algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm), and calculating integers $s, t$ such that $sa + tb = gcd(a, b)$ can be done efficiently using the [Extended Euclidean Algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm). We eschew a detailed explanation of either algorithm in favor of the Wikipedia articles.
 
-### Groups, revisited
+### Groups
 
-Given that $gcd(a, m) = 1$, finding an inverse is as simple as running the Extended Euclidean Algorithm. Taking the relation $sa + tm = 1$ mod $m$, we find that we get some $sa \equiv 1 \text{ mod } m$ where $s$ is the inverse of 1. If $m$ is prime, then $gcd(a, m) = 1$ for all $a$, which means that all $a$ has an inverse that we can calculate in this fashion. Thus, $\mathbb{Z}_m^*$ for prime $m$ is a group, and will be the group we use for the rest of this section.
+To work with some theorems more nicely in general, and to allow us to generalize some of the following protocols, we introduce the notion of a group. A **group** is defined as a set $G$ and an operation $\cdot$ such that the following three properties hold:
+1. **Identity**: there exists some identity element $e$ such that for any element $a \in G$ we have that $e \cdot a = a \cdot e = a$ (0 under addition and 1 under multiplication).
+2. **Associativity**:  for all elements of the group $a, b \in G$, we have that $a \cdot b = b \cdot a$ (true for addition and multiplication).
+3. **Inverses**: for every element $a \in G$, there exists an inverse $-a \in G$ such that $a + (-a) = e$ ($-a$ for any $a$ under addition).
 
-Moreover, a **cyclic group** is a group $G$ in which there is some element, $g$ that generates the whole group; that is, all elements of $G$ are some power of $g$ (all $a = g^e$ for some $e$). This happens to be true for all of the groups we've considered so far, so we can assume that some generator exists and use it accordingly. 
+The set of integers modulo $m$ under addition, denoted $\mathbb{Z}_m$, is a group. Moreover, the set of integers modulo some prime $p$ under multiplication is also a group. The set of integers modulo some composite integer $m$ isn't necessarily a group, but if you only consider the integers that are coprime to $m$, then we can construct a special group called the **multiplicative group of units**. 
 
+Given that $gcd(a, m) = 1$, finding an inverse is as simple as running the Extended Euclidean Algorithm. Taking the relation $sa + tm = 1$ mod $m$, we find that we get some $sa \equiv 1 \text{ mod } m$ where $s$ is the inverse of 1. If $m$ is prime, then $gcd(a, m) = 1$ for all $a$, which means that all $a$ has an inverse that we can calculate in this fashion. Thus, $\mathbb{Z}_m^*$ containing the set of integers coprime to $m$ is a group, and will be the group we use for the rest of this section.
+
+Lastly, a **cyclic group** is a group $G$ in which there is some element, $g$ that **generates** the whole group; that is, all elements of $G$ are some power of $g$ (all $a = g^e$ for some $e$). This happens to be true for all of the groups we've considered so far, so we can assume that some generator exists and use it accordingly.
+
+%% Removed since not very useful in my opinion
 ### Fast Powering
 
-We take an aside and consider numbers of the form $g^e \text{ mod } m$. Unfortunately, computing such a number naively by multiplying $g$ by itself $e$ times is very inefficient; thankfully, by employing [Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) we can speed this process up exponentially. In short, we notice that $g^e$ is equivalent to the product of $g^{b_i}$ where $b_i$ are the powers of 2 that add up to $e$. By repeatedly squaring $g$ and only multiplying our result by the powers of 2 that are included in $e$, we can compute $g^e$ in logarithmic time. We eschew a detailed explanation of either algorithm in favor of the Wikipedia article.
+We take an aside and consider group elements of the form $g^e \text{ mod } m$. Unfortunately, computing such an element naively by multiplying $g$ by itself $e$ times is very inefficient; thankfully, by employing [Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) we can speed this process up exponentially. In short, we notice that $g^e$ is equivalent to the product of $g^{b_i}$ where $b_i$ are the powers of 2 that add up to $e$. By repeatedly squaring $g$ and only multiplying our result by the powers of 2 that are included in $e$, we can compute $g^e$ in logarithmic time. We eschew a detailed explanation of either algorithm in favor of the Wikipedia article.
+%%
 
 ### Fermat's Little Theorem and Euler's Theorem
 
@@ -52,31 +57,31 @@ These are incredibly useful results that allows us to do a lot of cancelling, as
 
 ## Diffie-Hellman Key Exchange
 
-Let's say two parties, Alice and Bob (we typically name our parties Alice and Bob, and any adversaries Eve), want to decide on a shared key to encrypt some messages. For example, they may want to apply the [one-time pad](https://en.wikipedia.org/wiki/One-time_pad) and so they need a shared, secret $k$-bit integer to do so. The **[Diffie-Hellman key exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)** protocol, developed in 1976, is one method of coming to a shared secret. Diffie-Hellman will be used throughout the rest of the course to compute shared secrets.
+We now step away from number theory and consider some real cryptographic protocols. Let's say two parties, Alice and Bob (we typically name our honest parties Alice and Bob, and any adversaries Eve), want to decide on a shared key to encrypt some messages. For example, they may want to apply the [one-time pad](https://en.wikipedia.org/wiki/One-time_pad) and so they need a shared, secret $k$-bit integer to do so. The **[Diffie-Hellman key exchange](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)** protocol, developed in 1976, is one method of coming to a shared secret. Diffie-Hellman will be used *extensively* throughout the rest of the course to compute shared secrets.
 
-Diffie-Hellman is quite simple. Alice and Bob first come to agreement on a public base $g$, which can be any integer, and a public modulus $p$, which can be any sufficiently large prime. In general, we wish to keep our numbers large enough where an adversary can't brute-force their way into finding out secret key. After deciding on $g$ and $p$, Alice and Bob each pick a secret random integer, denoted $a, b$ respectively. Alice will compute and send $g^a \text{ mod } p$ to Bob, and Bob will compute and send $g^b \text{ mod } p$ to Alice. Finally, both parties will compute $g^{ab} \text{ mod } p$ by exponentiating what they receive from the other party with their secret integer. This value, $g^{ab}$, is the shared secret.
+Diffie-Hellman is quite simple. Alice and Bob first come to agreement on a public base $g$, which can be any group element such that $g$ is a generator of a prime order group; for example, a generating element of $\mathcal{Z}^*_p$. In general, we wish to keep our groups large enough where an adversary can't brute-force their way into finding out secret key. After deciding on $g$, Alice and Bob each pick a secret random integer, denoted $a, b$ respectively. Alice will compute and send $g^a$ to Bob, and Bob will compute and send $g^b$ to Alice. Finally, both parties will compute $g^{ab}$ by exponentiating what they receive from the other party with their secret integer. This value, $g^{ab}$, is the shared secret.
 
 (Remember that fast-powering is what makes this efficient; otherwise, computing large exponents will take a long time!)
 
-Correctness is clear since the operations clearly end up with the same values on both parties. What might not be clear is why this is secure; can an adversary Eve figure out $g^{ab}$ given what has been transmitted; namely $g^a$ and $g^b$? In truth, we don't know whether Eve can efficiently solve this problem; the hardness of this problem is called the Diffie-Hellman assumption ([decisional](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange), [computational](https://en.wikipedia.org/wiki/Computational_Diffie%E2%80%93Hellman_assumption)), and it is very similar to the [Discrete logarithm](https://en.wikipedia.org/wiki/Discrete_logarithm) assumption. But, for large enough integers, all known techniques take too long to break security of this cryptosystem.
+Correctness is clear since the operations clearly end up with the same values on both parties. What might not be clear is why this is secure; can an adversary Eve figure out $g^{ab}$ given what has been transmitted; namely $g^a$ and $g^b$? In truth, we don't know whether Eve can efficiently solve this problem; the hardness of this problem is called the Diffie-Hellman assumption ([decisional](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange), [computational](https://en.wikipedia.org/wiki/Computational_Diffie%E2%80%93Hellman_assumption)), and it is very similar to the [Discrete logarithm](https://en.wikipedia.org/wiki/Discrete_logarithm) assumption. But, for large enough groups, all known techniques take too long to break security of this cryptosystem.
 
 
 ## ElGamal Encryption
 
 With Diffie-Hellman, we can come to a shared key in order to send a message. This is useful for **symmetric-key encryption**, which is where both Alice and Bob encrypt and decrypt using a shared key. However, what if we can't communicate to find a shared key in advance? We rely on **assymmetric-key encryption**, also known as **public-key encryption**, which allows Alice to send messages to Bob, but not vice versa. In general, Bob will have some private key $sk$ and some public key $pk$ and publish only $pk$. Alice will then use $pk$ to encrypt messages that can only be decrypted with $sk$. We explore an example of such a system now. The **[ElGamal encryption](https://en.wikipedia.org/wiki/ElGamal_encryption)** system, developed in 1985, is such a public key cryptosystem.  It is based on Diffie-Hellman and operates in a very similar way.
 
-ElGamal is quite simple. First, Bob will generate system parameters by choosing a public base $g$, which can be any integer, and a public modulus $p$, which can be any sufficiently large prime. He then chooses a random integer $x$ from the range $[1, p-1]$ and computes $g^x \text{ mod } p$. We have then that $pk = g^x$ and $sk = x$, so Bob publishes $pk$.
+ElGamal is quite simple. First, Bob will generate system parameters by choosing a public base $g$, which can be any group element such that $g$ is a generator of a prime order group; for example, a generating element of $\mathcal{Z}^*_p$. He then chooses a random integer $x$ from the range $[1, p-1]$ and computes $g^x$. We have then that $pk = g^x$ and $sk = x$, so Bob publishes $pk$.
 
 When Alice wants to encrypt a message $m$, which can be any integer in the range $[1, p-1]$, she first chooses a random integer $y$ from the range $[1, p-1]$ and computes $s = pk^y$. Then, she computes $c_1 = g^y$ and $c_2 = m \cdot s$ and sends both to Bob. To decrypt, Bob computes $c_2 \cdot (c_1^{sk})^{-1}$ by exponentiating $c_1$ by his secret key, then computing inverses using the Extended Euclidean Algorithm, and finally multiplying by $c_2$.
 
-Correctness is simple when we expand; notice that $c_2 \cdot (c_1^{sk})^{-1} = m \cdot g^{xy} \cdot g^{-xy} = m$; so Bob recovers the original message. Security of this scheme relies on the same assumptions as Diffie-Hellman; we eschew a rigorous security proof in favor of a mathematical cryptography course.
+Correctness is simple when we expand; notice that $c_2 \cdot (c_1^{sk})^{-1} = m \cdot g^{xy} \cdot g^{-xy} = m$; so Bob recovers the original message. Security of this protocol relies on the same assumptions as Diffie-Hellman; we eschew a rigorous security proof in favor of a mathematical cryptography course.
 
 
 ## RSA Encryption
 
-We explore one more public-key cryptosystem, known as **[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Key_generation)** (Rivest-Shamir-Adleman). Unlike Diffie-Hellmand and ElGamal, RSA doesn't rely on the hardness of the discrete logarithm problem; rather, it relies on the hardness of factoring large integers.
+We explore one more public-key cryptosystem, known as **[RSA](https://en.wikipedia.org/wiki/RSA_(cryptosystem)#Key_generation)** (Rivest-Shamir-Adleman). Unlike Diffie-Hellman and ElGamal, RSA doesn't rely on the hardness of the discrete logarithm problem; rather, it relies on the hardness of factoring large integers. That is, given large enough $n = pq$, it is computationally infeasible to find $p$ or $q$.
 
-RSA is quite simple. First, Bob will generate system parameters by choosing two large prime numbers $p, q$. He then computes $n = pq$, and then chooses some integer $e$ such that $gcd(e, (p-1)(q-1)) = 1$. Lastly, since $e$ is coprime to $(p-1)(q-1)$, we can find some $d \equiv e^{-1} \text{ mod } (p-1)(q-1)$. We have then that $pk = n, e$ and $sk = p, q, d$, so Bob publishes $pk$.
+RSA is quite simple. First, Bob will generate system parameters by choosing two large primes $p, q$. He then computes $n = pq$, and then chooses some integer $e$ such that $gcd(e, (p-1)(q-1)) = 1$. Lastly, since $e$ is coprime to $(p-1)(q-1)$, we can find some $d \equiv e^{-1} \text{ mod } (p-1)(q-1)$. We have then that $pk = n, e$ and $sk = p, q, d$, so Bob publishes $pk$.
 
 When Alice wants to encrypt a message $m$, which can be any integer in the range $[1, n-1]$, Alice simply computes $c = m^e \text{ mod } n$ and sends it to Bob. To decrypt, Bob computes $c^d \text{ mod } n$.
 
@@ -95,14 +100,14 @@ When Alice wishes to verify that a message-signature pair, $m, (r, s)$ is valid,
 
 Correctness is clear if expand carefully. First, notice that $g = h^{(p-1)/q} \text{ mod } p \implies g^q \equiv h^{p-1} \equiv 1 \text{ mod } p$ by FLT. We have from construction that $k = w \cdot m + w \cdot x \cdot r$ where $w = s^{-1} \text{ mod } q$. Thus, $g^k \equiv g^{H(m) w} g^{xrs} \equiv g^{H(m)w} y^{rw} \equiv g^{u_1} y^{u_2} \equiv v$.
 
-Security of this scheme relies on the same assumptions as Diffie-Hellman; we eschew a rigorous security proof in favor of a mathematical cryptography course.
+Security of this protocol relies on the same assumptions as Diffie-Hellman; we eschew a rigorous security proof in favor of a mathematical cryptography course.
 
-It's worth noting that often we want to compute signatures for messages that might fall outside of the acceptable range for this algorithm. To make sure that this is doable efficiently, we usually employ a hash function to shrink the size of a message for signing. An appropriate hash function should be chosen, however, as to not compromise security of the scheme.
+It's worth noting that often we want to compute signatures for messages that might fall outside of the acceptable range for this algorithm. To make sure that this is doable efficiently, we usually employ a hash function to shrink the size of a message for signing. An appropriate hash function should be chosen, however, as to not compromise security of the protocol.
 
 
 ## A Word of Caution
 
-While we are having you implement some ciphers on your own, know that this is an exercise to help you understand these algorithms, not a warrant to use home-rolled ciphers in the wild. Building these ciphers so that they are efficient and work securely all the time is a fools' errand, and we are all better off using standardized implementations from well-vetted libraries (as we will do for the rest of the course). A pledge for another cipher, AES, rings true:
+While we are having you implement some protocols on your own, know that this is an exercise to help you understand these algorithms, not a warrant to use home-rolled protocols in the wild. Building these protocols so that they are efficient and work securely all the time is a fools' errand, and we are all better off using standardized implementations from well-vetted libraries (as we will do for the rest of the course). A pledge for another protocol, AES, rings true:
 
 > I promise that once I see how simple AES really is, I will not implement it in production
 code even though it will be really fun. This agreement will remain in effect until I learn
@@ -116,9 +121,9 @@ in implementing AES myself.
 
 Please note: you may NOT change any of the function headers defined in the stencil. Doing so will break the autograder; if you don't understand a function header, please ask us what it means and we'll be happy to clarify.
 
-## Ciphers
+## Cryptographic Protocols
 
-In this assignment you will implement four cryptographic protocols: Diffie-Hellman key exchange, El Gamal encryption, RSA encryption, and DSA signatures. Using what you know about these schemes from class and from the descriptions above, implement the function headers in `src/cipher.cpp`. We recommend doing them in the order they are introduced, but there is no best way to complete this assignment. In particular, you should edit the following functions:
+In this assignment you will implement four cryptographic protocols: Diffie-Hellman key exchange, El Gamal encryption, RSA encryption, and DSA signatures. Using what you know about these protocols from class and from the descriptions above, implement the function headers in `src/cipher.cpp`. We recommend doing them in the order they are introduced, but there is no best way to complete this assignment. In particular, you should edit the following functions:
 
 - `long diffie_hellman(long p, long g, long a, long B)`
 - `std::tuple<long, long> elgamal_encrypt(long p, long g, long A, long m)`
@@ -156,7 +161,7 @@ If you would like to add new files (e.g. to hold helper functions), make sure to
 
 You may write tests in any of the `test/**.cpp` files in the Doctest format. If you want to add any new tests, make sure to add the file in line 4 of `test/CMakeLists.txt` so that `cmake` can pick up on the new files. Examples have been included in the assignment stencil. To run the tests run `make test` in the `build` directory.
 
-It may be difficult to find suitable system parameters for some of the ciphers. Moreover, because we are using `long`s to store our values, integer overflow is a real problem. To combat this, we provide some system parameters below that we expect to work.
+It may be difficult to find suitable system parameters for some of the protocols. Moreover, because we are using `long`s to store our values, integer overflow is a real problem. To combat this, we provide some system parameters below that we expect to work.
 
 TODO: Find system parameters.
 
