@@ -11,7 +11,7 @@ The following questions will relate to the Auth project. Please answer the follo
 In this problem we'll pick apart some of the details in the Auth protocol and justify their security.
 
 1) In the key exchange step between the user and the server, the user first sends $(g^a)$ where $g^a$ is the user's public value. Then, the server sends back $(g^b, g^a, \sigma_s)$, where $g^b$ is the server's public value and $\sigma_s$ is a signature computed on $(g^a, g^b)$. Explain an attack that could arise if instead the server sent back $(g^b, \sigma_s)$ where $\sigma_s$ was a signature on only $g^b$.
-2) Explain why the setup we have is sufficient; that is, that the user doesn't need to sign anything and that the server doesn't need to send back any more information. You can assume that the user has access to an `ABORT` function it can use to signal to the server to drop the session.
+2) Explain why the setup we have protects against the above attack. You can assume that the user has access to an `ABORT` function it can use to signal to the server to drop the session.
 
 # 2) Password Storage
 
@@ -21,9 +21,9 @@ Our password storage scheme is designed to protect against any computationally b
 
 **Login**: First, the user sends their id $id$ and the server responds with the stored salt $\sigma$ to the user. Then, the user computes and responds with $c = H(p || \sigma)$ by hashing the password with the salt appended. The server will then try for all $\rho \in \{0, 1\}^k$ computing $c' = H(c || \rho)$, and authenticating the user if $c'$ matches the stored value for any $\rho$.
 
-- Explain why this verification scheme is correct; that is, a valid password should be cleared for login.
-- Explain what could happen if the server only stored $c$ instead of hashing it again to obtain and store $c'$. Remember that our adversary may have access to our storage and compute.
-- Explain what could happen if the client sent an encryption of $p$ instead of hashing it. That is, to log in, a client and a server run key exchange to derive a shared secret $s$, then use symmetric key encryption to encrypt and send $p$. Remember that our adversary may have access to our storage and compute.
+1) Explain why this verification scheme is correct; that is, a valid password should be cleared for login.
+2) Explain what could happen if the server only stored $c$ and used $c$ for authentication instead of hashing it again to obtain and store $c'$. Remember that our adversary may have access to our storage and compute.
+3) Explain what could happen if the client sent an encryption of $p$ instead of hashing it. That is, to log in, a client and a server run key exchange to derive a shared secret $s$, then use symmetric key encryption to encrypt and send $p$. Remember that our adversary may have access to our storage and compute.
 
 # 3) Delegated Trust
 

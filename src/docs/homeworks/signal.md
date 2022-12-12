@@ -8,13 +8,13 @@ The following questions will relate to the Signal project. Please answer the fol
 
 # 1) What-then-What?
 
-We wish to ensure that messages we send aren't tampered with in transit or forged by a third-party adversary. To do this, we leverage the fact that we have a shared secret and compute MACs. We'll review a few different methods for calculating MACs given a block cipher $E$. For all of the following we try to encrypt a message $m$ using shared secret $s$.
+We wish to ensure that messages we send aren't tampered with in transit or forged by a third-party adversary. To do this, we leverage the fact that we have shared secrets $s_1, s_2$ and compute MACs. We'll review a few different methods for calculating MACs given a block cipher $E$. For all of the following we try to encrypt a message $m$ using shared secret $s$.
 
-**Method 1 (MAC-then-encrypt)**: First, we compute a MAC on the plaintext $t = MAC(s, m)$ and encrypt the whole message $c = E(s, m || t)$. To decrypt and verify we obtain $m || t = D(s, c)$, then parse $m$ and $t$ and verify that $t == MAC(s, m)$.
+**Method 1 (MAC-then-encrypt)**: First, we compute a MAC on the plaintext $t = MAC(s_1, m)$ and encrypt the whole message $c = E(s_2, m || t)$. To decrypt and verify we obtain $m || t = D(s_2, c)$, then parse $m$ and $t$ and verify that $t == MAC(s_1, m)$.
 
-**Method 2 (Encrypt-and-MAC)**: First, we compute a MAC on the plaintext $t = MAC(s, m)$ and encrypt the message $c = E(s, m)$, then output $(c, t)$. To decrypt and verify we obtain $m = D(s, c)$, then verify that $t == MAC(s, m)$.
+**Method 2 (Encrypt-and-MAC)**: First, we compute a MAC on the plaintext $t = MAC(s_1, m)$ and encrypt the message $c = E(s_2, m)$, then output $(c, t)$. To decrypt and verify we obtain $m = D(s_2, c)$, then verify that $t == MAC(s_1, m)$.
 
-**Method 3 (Encrypt-then-MAC)**: First, we encrypt the message $c = E(s, m)$ and then generate a MAC on the ciphertext $t = MAC(s, c)$. To decrypt and verify we check that $t == MAC(s, c)$, then obtain the message $m = D(s, c)$.
+**Method 3 (Encrypt-then-MAC)**: First, we encrypt the message $c = E(s_2, m)$ and then generate a MAC on the ciphertext $t = MAC(s_1, c)$. To decrypt and verify we check that $t == MAC(s_1, c)$, then obtain the message $m = D(s_2, c)$.
 
 We don't expect formal reductions; rather, just informal ideas on how an adversary might exploit each of the protocols we laid out. Note that MACs are not necessarily hiding; that is, they may reveal some information about the message it was generated on. Moreover, 
 
