@@ -110,8 +110,6 @@ The following is an overview of the functionality that each support code file pr
 
 ## Libraries: CryptoPP
 
-In this and future assignments, we will be using CryptoPP as our library of choice for our basic cryptographic primitives. CryptoPP is a widely used and trusted suite of cryptographic primitives; others like it include OpenSSL. We will introduce other libraries as the course goes along and make sure that you have all of the documentation you need on hand to build what we ask you to build.
-
 You may find the following wiki pages useful during this assignment:
 - [CryptoPP Diffie-Hellman](https://www.cryptopp.com/wiki/Diffie-Hellman)
 - [CryptoPP HKDF](https://www.cryptopp.com/wiki/HKDF)

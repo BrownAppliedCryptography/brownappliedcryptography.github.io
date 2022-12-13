@@ -141,6 +141,17 @@ Throughout this course, we will use C++. We use C++ because it is the language i
 
 Our development environment makes it very easy for you to write and build C++. In terms of syntax, we recommend [cppreference](https://en.cppreference.com/w/) and [learncpp](https://www.learncpp.com/) as good resources to help you learn. In general, we won't be using very advanced C++ features, but it is good to understand basic syntax.
 
+## Libraries: CryptoPP
+
+In this and future assignments, we will be using CryptoPP as our library of choice for our basic cryptographic primitives. CryptoPP is a widely used and trusted suite of cryptographic primitives; others like it include OpenSSL. We will introduce other libraries as the course goes along and make sure that you have all of the documentation you need on hand to build what we ask you to build.
+
+You may find the following functions useful:
+- `CryptoPP::EuclideanMultiplicativeInverse`
+
+You may find the following wiki pages useful during this assignment:
+- [CryptoPP Integer](https://www.cryptopp.com/wiki/Integer)
+- [CryptoPP nbtheory](https://cryptopp.com/docs/ref/nbtheory_8h.html#ad0e863f715f6a4cf0b40c341e45c55b9)
+
 ---
 
 # Getting Started
