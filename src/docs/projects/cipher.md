@@ -19,11 +19,9 @@ In this assignment you'll be implementing a few classic cryptographic protocols.
 
 The following is an overview of the number theory necessary to understand the encryption protocols in this homework. You can safely skip this section if you're already familiar with number theory, or if you're more comfortable engaging with the protocols directly (we'll use language and terminology from this section, but not deeply). **This section may seem intimidating; to reiterate, you do not need to understand this math deeply to implement this assignment, and you certainly don't need it for the rest of the course.**
 
-### Divisibility
+### Divisibility and GCDs
 
 Consider two integers $a$ and $b$. We say that $a$ **divides** $b$ if there exists some other integer, $c$, such that $ac = b$. We denote $a$ divides $b$ as $a \mid b$. This notion of divisibility by a particular integer $m$ can generalize to categorize all integers by considering remainders under division by $m$. Given some integers $a, b$. We say that $a$ and $b$ are **congruent mod $m$** if there exists some integer $k$ such that $a + km = b$. In other words, it means that $a$ and $b$ differ by a multiple of $m$, or that when divided by $m$, they yield the same remainder. We write $a \equiv b \text{ mod } m$ when this is the case.
-
-### GCDs
 
 Recall **greatest common divisors**, or GCDs for short. Given two integers $a, b$, the GCD of $a$ and $b$ is the largest integer $d$ such that $d \mid a$ and $d \mid b$. We say that two integers are **coprime** when their GCD is 1. Calculating the GCD of two integers can be done efficiently using the [Euclidean Algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm), and calculating integers $s, t$ such that $sa + tb = gcd(a, b)$ can be done efficiently using the [Extended Euclidean Algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm). We eschew a detailed explanation of either algorithm in favor of the Wikipedia articles.
 
@@ -34,7 +32,7 @@ To work with some theorems more nicely in general, and to allow us to generalize
 2. **Associativity**:  for all elements of the group $a, b \in G$, we have that $a \cdot b = b \cdot a$ (true for addition and multiplication).
 3. **Inverses**: for every element $a \in G$, there exists an inverse $-a \in G$ such that $a + (-a) = e$ ($-a$ for any $a$ under addition).
 
-The set of integers modulo $m$ under addition, denoted $\mathbb{Z}_m$, is a group. Moreover, the set of integers modulo some prime $p$ under multiplication is also a group. The set of integers modulo some composite integer $m$ isn't necessarily a group, but if you only consider the integers that are coprime to $m$, then we can construct a special group called the **multiplicative group of units**. 
+The set of integers modulo $m$ under addition, denoted $\mathbb{Z}_m$, is a group. Moreover, the set of integers modulo some prime $p$ under multiplication is also a group. The set of integers modulo some composite integer $m$ isn't necessarily a group, but if you only consider the integers that are coprime to $m$, then we can construct a special group called the **multiplicative group of units**.
 
 Given that $gcd(a, m) = 1$, finding an inverse is as simple as running the Extended Euclidean Algorithm. Taking the relation $sa + tm = 1$ mod $m$, we find that we get some $sa \equiv 1 \text{ mod } m$ where $s$ is the inverse of 1. If $m$ is prime, then $gcd(a, m) = 1$ for all $a$, which means that all $a$ has an inverse that we can calculate in this fashion. Thus, $\mathbb{Z}_m^*$ containing the set of integers coprime to $m$ is a group, and will be the group we use for the rest of this section.
 
@@ -61,7 +59,7 @@ We now step away from number theory and consider some real cryptographic protoco
 
 Diffie-Hellman is quite simple. Alice and Bob first come to agreement on a public base $g$, which can be any group element such that $g$ is a generator of a prime order group; for example, a generating element of $\mathcal{Z}^*_p$. In general, we wish to keep our groups large enough where an adversary can't brute-force their way into finding out secret key. After deciding on $g$, Alice and Bob each pick a secret random integer, denoted $a, b$ respectively. Alice will compute and send $g^a$ to Bob, and Bob will compute and send $g^b$ to Alice. Finally, both parties will compute $g^{ab}$ by exponentiating what they receive from the other party with their secret integer. This value, $g^{ab}$, is the shared secret.
 
-(Remember that fast-powering is what makes this efficient; otherwise, computing large exponents will take a long time!)
+%%(Remember that fast-powering is what makes this efficient; otherwise, computing large exponents will take a long time!)%%
 
 Correctness is clear since the operations clearly end up with the same values on both parties. What might not be clear is why this is secure; can an adversary Eve figure out $g^{ab}$ given what has been transmitted; namely $g^a$ and $g^b$? In truth, we don't know whether Eve can efficiently solve this problem; the hardness of this problem is called the Diffie-Hellman assumption ([decisional](https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange), [computational](https://en.wikipedia.org/wiki/Computational_Diffie%E2%80%93Hellman_assumption)), and it is very similar to the [Discrete logarithm](https://en.wikipedia.org/wiki/Discrete_logarithm) assumption. But, for large enough groups, all known techniques take too long to break security of this cryptosystem.
 
