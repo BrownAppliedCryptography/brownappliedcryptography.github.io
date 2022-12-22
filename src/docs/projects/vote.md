@@ -1,6 +1,6 @@
 ---
-title: Ballot
-name: ballot
+title: Vote
+name: vote
 due: January 1 
 ---
 
