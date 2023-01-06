@@ -24,8 +24,6 @@ The following diagram explains how the protocol works together.
 
 ![Architecture]()
 
-In short, we proceed in 
-
 ---
 
 # Assignment Specification
@@ -34,7 +32,7 @@ Please note: you may NOT change any of the function headers defined in the stenc
 
 ## Functionality
 
-You will primarily need to edit `drivers/crypto_driver.cxx` and `pkg/client.cxx`. The following is an overview of relevant files:
+You will primarily need to edit TODO:. The following is an overview of relevant files:
 - TODO:
 
 The following roadmap should help you organize concerns into a sequence:
@@ -50,6 +48,7 @@ Some tips:
 
 The following is an overview of the functionality that each support code file provides.
 - TODO:
+- Everything else from prior assignments is unchanged.
 
 ## Libraries: CryptoPP
 
@@ -64,9 +63,7 @@ To get started, get your stencil repository [here]() and clone it into the `deve
 
 ## Running
 
-To build the project, `cd`  into the `build` folder and run `cmake ..`. This will generate a set of Makefiles building the whole project. From here, you can run `make` to generate a binary you can run, `./auth_user` or `./auth_server` or `./auth_2fa`, and `make check` to run any tests you write in the `test` folder.
-
-If you would like to add new files (e.g. to hold helper functions), make sure to include them in the `CMakeLists.txt` file s othat `cmake` can pick up on the new files.
+To build the project, `cd`  into the `build` folder and run `cmake ..`. This will generate a set of Makefiles building the whole project. From here, you can run `make` to generate a binary you can run, and you can run `make check` to run any tests you write in the `test` folder.
 
 ## Testing
 
