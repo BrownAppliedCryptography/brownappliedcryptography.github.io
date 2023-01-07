@@ -126,7 +126,7 @@ Some tips:
 - You don't need to replicate our CLI functionality; however, using it as a debugging tool is helpful.
 - Use our function `crypto_driver->nowish()` to get the time rounded down to the nearest minute.
 - Use our function `crypto_driver->hash()` to hash values.
-- Use our constants from `include-shared/constants.hpp` where applicable.
+- Use our constants from `include-shared/constants.hpp` where applicable. In particular from now on, Diffie-Hellman parameters are now hard-coded here instead of exchanged.
 
 ## Support Code
 
