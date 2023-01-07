@@ -12,13 +12,34 @@ In this assignment, you'll implement a cryptographic voting protocol based on th
 
 # Background Knowledge
 
-In this assignment, you'll build a voting platform. There are four programs involves; arbiters that generate the election parameters and decrypt the final result, a registrar server that handles checking that all voters are registered to vote only once, a tallyer server that handles checking that all votes are valid, and the voter itself. All of these parties will interact to conduct an election; but, before we can describe how the protocol works, we describe some of the primitives we'll be using.
+In this assignment, you'll build an anonymous but verifiable voting platform. There are four main parties involved:
+
+1. A **registrar server** that allows voters to register for the election
+
+2. A **tallyer server** that receives the votes
+
+3. **Voters** who vote and verify the election
+
+4. **Arbiters** that generate the election parameters and decrypt the final result
+
+All of these parties will interact to conduct an election. But, before we can describe how the protocol works, we'll first describe some of the primitives we'll be using.
 
 ## Additively Homomorphic Encryption
 
+From machine learning to hospitals, there are countless situations where we'd like to perform *computations* on data. Nevertheless, data is data often *encrypted* and a valuable resource we don't want to share with others. The begs the question: **can we perform computations on encrypted data without decrypting it in the first place**? Such a primitive would seem to have immense applications.
+
+The answer turns out to be yes, thanks to [homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption)!
+
+In this project, we'll be using *additively homomorphic encryption*. This is homomorphic encryption that works for addition (but not for other computations). Recall we are building an anonymous (but verifiable) voting server: if we encrypt the votes they will be anonymous, and additive homomorphic encryption will allow us to tally them without deanonymization.
+
+We'll specifically be using the El Gamal protocol. //TODO explain 
+
 ## Zero Knowledge Proofs
 
+Additively homomorphic encryption gives us the ability to tally votes. But, what's to stop someone from voting twice? Moreover, how do we allow a voter to *verify* that their vote was counted? We need to do all of this without revealing the vote itself (or else anonymity would be broken). Here is where zero knowledge proofs come in handy!
+
 ## Sigma Protocols
+
 
 ## Disjunctive Chaum-Pedersen
 
