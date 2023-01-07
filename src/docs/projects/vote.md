@@ -12,7 +12,6 @@ In this assignment, you'll implement a cryptographic voting protocol based on th
 
 # Background Knowledge
 
-<<<<<<< HEAD
 In this assignment, you'll build a voting platform. There are four programs involves; arbiters that generate the election parameters and decrypt the final result, a registrar server that handles checking that all voters are registered to vote only once, a tallyer server that handles checking that all votes are valid, and the voter itself. All of these parties will interact to conduct an election.
 
 We highly recommend reading [Cryptographic Voting - A Gentle Introduction](https://eprint.iacr.org/2016/765.pdf) in full. It will help immensely in understanding the mathematics of this assignment.
@@ -66,39 +65,6 @@ We explore one last ZKP that proves that a ciphertext is either an encryption of
 First, notice that we can reduce proving that a ciphertext is an encryption of $m$ to the first ZKP quite easily by dividing the RHS of the ciphertext by $g^m$. Next, notice that we can actually cheat in our ZKP as long as we can select our value of $c$ before commiting to our randomness. In particular, we can compute "random" values to use in the proof $a' = g^r / a^c$ and $b' = pk^r / (b / g^m)^c$, which will then end up verifying correctly. We can use these two facts to generate a ZKP for an "OR" statement.
 
 The protocol is as follows. Run the sigma protocols to prove that $(a, b)$ is an encryption of either 0 or 1 simultaneously. Receive a challenge $c$ and for each protocol, produce a new challenge $c_i$ and proof such that $c = c_1 + c_2$. Since we can cheat if we choose $c_i$ beforehand, we cheat in exactly one of the protocols, then recover the challenge we use for the other by subtracting $c_i$ from $c$. Note that we can't cheat in both protocols unless the challenge $c$ we receive happens to be the sum of our chosen $c_i$. Then, to verify, we check each individual ZKP and that $c = c_1 + c_2$. This protocol is known as **Disjunctive Chaum-Pedersen** (DCP), or the **Sigma-OR** protocol. A more detailed explanation can be found in the readings.
-
-=======
-In this assignment, you'll build an anonymous but verifiable voting platform. There are four main parties involved:
-
-1. A **registrar server** that allows voters to register for the election
-
-2. A **tallyer server** that receives the votes
-
-3. **Voters** who vote and verify the election
-
-4. **Arbiters** that generate the election parameters and decrypt the final result
-
-All of these parties will interact to conduct an election. But, before we can describe how the protocol works, we'll first describe some of the primitives we'll be using.
-
-## Additively Homomorphic Encryption
-
-From machine learning to hospitals, there are countless situations where we'd like to perform *computations* on data. Nevertheless, data is data often *encrypted* and a valuable resource we don't want to share with others. The begs the question: **can we perform computations on encrypted data without decrypting it in the first place**? Such a primitive would seem to have immense applications.
-
-The answer turns out to be yes, thanks to [homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption)!
-
-In this project, we'll be using *additively homomorphic encryption*. This is homomorphic encryption that works for addition (but not for other computations). Recall we are building an anonymous (but verifiable) voting server: if we encrypt the votes they will be anonymous, and additive homomorphic encryption will allow us to tally them without deanonymization.
-
-We'll specifically be using the El Gamal protocol. //TODO explain 
-
-## Zero Knowledge Proofs
-
-Additively homomorphic encryption gives us the ability to tally votes. But, what's to stop someone from voting twice? Moreover, how do we allow a voter to *verify* that their vote was counted? We need to do all of this without revealing the vote itself (or else anonymity would be broken). Here is where zero knowledge proofs come in handy!
-
-## Sigma Protocols
-
-
-## Disjunctive Chaum-Pedersen
->>>>>>> e40aa40ce8d809a1a1ae506d44f44f4034a2f2ae
 
 ## Some Resources
 
