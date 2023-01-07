@@ -14,11 +14,11 @@ In this assignment, you'll implement oblivious transfer and garbled circuits to 
 
 In this assignment, you'll implement a simple version of Yao's garbled circuits using a simple version of oblivious transfer. This assignment leaves a lot of room for optimizations, which we leave to the reader to explore.
 
+We highly recommend reading TODO:
+
 ## Oblivious Transfer
 
 ## Garbled Circuits
-
-### Optimizations
 
 ### Bristol Format
 
