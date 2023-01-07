@@ -4,7 +4,7 @@ name: yaos
 due: January 1 
 ---
 
-Theme Song: []()
+Theme Song: [Nerdy Love](https://www.youtube.com/watch?v=6jzH6_KOsKk)
 
 In this assignment, you'll implement oblivious transfer and garbled circuits to allow two parties to jointly compute a function without learning the other party's inputs.
 
