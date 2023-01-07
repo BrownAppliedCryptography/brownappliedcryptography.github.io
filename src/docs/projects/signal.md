@@ -4,7 +4,7 @@ name: signal
 due: January 1 
 ---
 
-Theme Song: [Payphone](https://www.youtube.com/watch?v=KRaWnd3LJfs&ab_channel=Maroon5VEVO)
+Theme Song: [Text Me](https://www.youtube.com/watch?v=xfJPCenjZzY)
 
 In this assignment, you'll compose the cryptographic primitives we've been exploring to build a secure communication framework. In particular, we build a system wherein eavesdroppers cannot decipher or modify messages without our knowledge. You'll become much more familiar with cryptographic libraries and be prepared to take up larger protocols later in the course.
 

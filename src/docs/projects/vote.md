@@ -4,7 +4,7 @@ name: vote
 due: January 1 
 ---
 
-Theme Song: [KICKBACK](https://www.youtube.com/watch?v=M2cckDmNLMI)
+Theme Song: [Ruler of Everything](https://www.youtube.com/watch?v=I8sUC-dsW8A)
 
 In this assignment, you'll implement a cryptographic voting protocol based on the widely used Helios protocol. In particular, you'll explore how we can use zero knowledge proofs and homomorphic encryption in practice.
 
