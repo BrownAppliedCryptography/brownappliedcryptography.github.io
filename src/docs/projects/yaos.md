@@ -14,13 +14,48 @@ In this assignment, you'll implement oblivious transfer and garbled circuits to 
 
 In this assignment, you'll implement a simple version of Yao's garbled circuits using a simple version of oblivious transfer. This assignment leaves a lot of room for optimizations, which we leave to the reader to explore.
 
-We highly recommend reading TODO:
+We highly recommend reading the first few pages of [The Simplest Protocol for Oblivious Transfer](https://eprint.iacr.org/2015/267.pdf) and [Faster Secure Two-Party Computation Using Garbled Circuits](https://www.usenix.org/legacy/event/sec11/tech/full_papers/Huang.pdf). It will help immensely in understanding the mathematics of this assignment.
 
 ## Oblivious Transfer
 
+A foundational algorithm in multiparty computation is oblivious transfer (OT), which allows a receiver to select a message from a sender without the sender learning which message they selected, nor the receiver learning more than the message they selected. At first glance, OT seems impossible to achieve, but as we will see, we can use basic primitives that we've seen already to build an inefficient but simple implementation of 1-of-2 OT.
+
+We present an implementation of OT based on Diffie-Hellman key exchange. Let $H$ be a hash function. The protocol proceeds as follows:
+- The sender prepares two messages, $m_0, m_1$ to send to the receiver.
+- The sender generates a Diffie-Hellman keypair, $(a, g^a)$, and sends $A = g^a$ to the receiver.
+- The receiver generates a Diffie-Hellman keypair, $(b, g^b)$.
+	- If the receiver wishes to receive $m_0$, they send back $B = g^b$.
+	- If they wish to receive $m_1$, they send back $B = A g^b$.
+- The receiver generates shared key $k_c = H(A^b)$.
+- The sender generates $k_0 = H(B^a)$ and $k_1 = H((B/A)^a)$ and encrypts $e_0 = E(k_0, m_0)$ and $e_1 = E(k_1, m_1)$, sending both to the receiver.
+	- Notice that depending on the sender's choice bit, the key for the message they selected will be equal to $k_c$.
+- The receive decrypts the ciphertext they selected.
+
 ## Garbled Circuits
 
-### Bristol Format
+Garbled circuits allow two parties to jointly compute over a boolean circuit without learning any intermediate values or the other party's inputs. This is an immensely useful primitive as it allows two parties to jointly compute any function securely. We'll describe a garbled circuit protocol, without optimizations, that uses our OT implementation above, along with some other primitives we've been interacting with.
+
+All of our circuits are specified using [Bristol Format](https://homes.esat.kuleuven.be/~nsmart/MPC/old-circuits.html), and we provide parsers to ease development. We highly recommend reading up on the format, should you need to debug a particular circuit or wish to write your own.
+
+We present a simple implementation of garbled circuits. Let $H$ be a hash function. The protocol proceeds as follows:
+- The garbler parses circuit $C$ and obtains a set of gates and wires to process.
+- For each wire, the garbler produces a 0-label and a 1-label, which should be a random $k$-bit string. Labels should be tagged with $\lambda$ trailing 0's so we can identify when decryption was successful.
+- For each gate, the garbler will produce a garbled gate consisting of 4 ciphertexts, where each ciphertext is the encryption of the corresponding output label when the two input labels are combined. Concretely, let's say we're garbling an "AND" gate with input wires $w_x, w_y$ and output wire $w_z$. Then, the ciphertexts will be as follows:
+	- $c_{00} = E(w_x^0 || w_y^0, w_z^0)$
+	- $c_{01} = E(w_x^0 || w_y^1, w_z^0)$
+	- $c_{10} = E(w_x^1 || w_y^0, w_z^0)$
+	- $c_{11} = E(w_x^1 || w_y^1, w_z^1)$
+- The garbler permutes each garbled gate and sends all of them to the runner.
+- The garbler also sends labels corresponding to the garbler's input.
+- The evaluator uses OT to retrieve the labels corresponding to its input.
+- The evaluator evaluates each gate and retrieves the corresponding output label by decrypting all output wires using the input wires it has until it reaches a valid decryption.
+- The evaluator sends the labels correponding to the output to the garbler, which then reveals the final output.
+
+## Some Resources
+
+The following papers are incredibly useful for gaining a full understanding of protocols like ours:
+- [The Simplest Protocol for Oblivious Transfer](https://eprint.iacr.org/2015/267.pdf)
+- [Faster Secure Two-Party Computation Using Garbled Circuits](https://www.usenix.org/legacy/event/sec11/tech/full_papers/Huang.pdf)
 
 ## Putting it all together
 
@@ -28,7 +63,7 @@ The following diagram explains how the protocol works together.
 
 ![Architecture]()
 
-In short, we proceed in the following steps: TODO:.
+We don't give a detailed protocol description as it doesn't differ meaningfully from the base protocol described above.
 
 ---
 
@@ -41,12 +76,12 @@ Please note: you may NOT change any of the function headers defined in the stenc
 You will primarily need to edit `src/drivers/ot_driver.cxx`, `src/pkg/garbler.cxx`, and `src/pkg/runner.cxx`. The following is an overview of relevant files:
 - `src/cmd/garbler.cxx` is the main entrypoint for the `yaos_garbler` binary. It calls the `Garbler` class.
 - `src/cmd/runner.cxx` is the main entrypoint for the `yaos_runner` binary. It calls the `Runner` class.
-- `src/drivers/ot_driver.cxx` contains a driver for oblivious transfer.
+- `src/drivers/ot_driver.cxx` contains a driver for OT.
 - `src/pkg/garbler.cxx` Implements the `Garbler` class.
 - `src/pkg/runner.cxx` Implements the `Runner` class.
 
 The following roadmap should help you organize concerns into a sequence:
-- Implement oblivious transfer.
+- Implement OT.
 - Implement label generation and verification.
 - Implement gate generation.
 - Implement get evaluation
@@ -64,7 +99,7 @@ In particular, you should implement the following functions:
 
 Some tips:
 - Use `byteblock_to_integer` and `integer_to_byteblock` to convert to and from integers and byteblocks.
-- You may have to use `DH_generate_shared_key` and `AES_generate_shared_key` many times in oblivious transfer; that is expected.
+- You may have to use `DH_generate_shared_key` and `AES_generate_shared_key` many times in OT; that is expected.
 - Remember to use the constants provided for `LABEL_LENGTH` and `LABEL_TAG_LENGTH`.
 - Feel free to use `CryptoPP::OS_GenerateRandomBlock` and `CryptoPP::SecByteBlock::CleanGrow` to create labels.
 - Look into `CryptoPP::xorbuf` to implement XOR
