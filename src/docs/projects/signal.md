@@ -36,11 +36,17 @@ The key we generate through Diffie-Hellman and the PRG may not be sufficient for
 
 ## Putting it all together
 
-The following diagram explains how the protocol works together.
+The following diagrams explain how the protocol works together.
 
-![Architecture](/static/img/handout/signal/architecture.png)
+First, the parties need to run the Diffie-Hellman key exchange to derive secret keys.
 
-In short, we proceed in two steps; key exchange and then communication.
+![Architecture DH](/static/img/handout/signal/architecture_DH.png)
+
+Then, the parties are able to securely communicate. One secret key is used for encryption/decryption and the other is used for MAC generation/verification. The following diagram shows the sequence for the event where Alice sends a message to Bob. The event where Bob sends a message to Alice is symmetrical. 
+
+![Architecture Msg](/static/img/handout/signal/architecture_msg.png)
+
+In short, we proceed in two steps: key exchange and then secure communication.
 
 ### Key Exchange
 
