@@ -74,8 +74,6 @@ In particular, you should implement the following functions:
 - `Message_Message Client::encrypt(std::string plaintext)`
 - `std::pair<std::string, bool> Client::decrypt(MessageStruct ciphertext)`
 - `void Client::run(std::string command)`
-- `void Client::receive_thread()`
-- `void Client::send_thread()`
 - `DHParams_Message CryptoDriver::DH_generate_params()`
 - `std::pair<SecByteBlock, SecByteBlock> CryptoDriver::DH_initialize(DHParams_Message params)`
 - `void CryptoDriver::DH_generate_shared_key(CryptoPP::SecByteBlock otherKey)`
