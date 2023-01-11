@@ -47,8 +47,8 @@ In short, we proceed in the following steps: login or registration, then communi
 - The server will respond with both DH public values $(g^a, g^b)$ and a signature on both values, $\sigma_s = Sign(g^a, g^b, sk_s)$.
 - Next, the user will send their $id_i$ to the server.
 - The server will generate a random 128-bit $salt_i$ for this user and send it to the user.
-- The user will use the salt to generate $h_i := H(password \ || \ salt_i)$ and send $h$ to the server.
-- The server then generates a random 8-bit $pepper_i$ and generates $h_i' = H(h_i' \ ||\ pepper_i)$.
+- The user will use the salt to generate $h_i := H(password \ || \ salt_i)$ and send $h_i$ to the server.
+- The server then generates a random 8-bit $pepper_i$ and generates $h_i' = H(h_i \ ||\ pepper_i)$.
 - The server then generates a PRG seed $seed_i$ and sends it to the user for use in 2FA.
 - The user generates a 2FA response $r := PRG_{seed_i}(now)$, where $now$ is rounded down to the nearest minute.
 - The server verifies that this response is valid by computing it again itself.
@@ -63,14 +63,12 @@ In short, we proceed in the following steps: login or registration, then communi
 - The server will respond with both DH public values $(g^a, g^b)$ and a signature on both values, $\sigma_s = Sign(g^a, g^b, sk_s)$.
 - Next, the user will send their $id$ to the server.
 - The server will retrieve $(id_i, h_i', salt_i, seed_i)$ from the database and sends $salt_i$ to the user.
-- The user will use the salt to generate $h_i := H(password || salt_i)$ and send $h$ to the server.
-- The server then tries all possible 8-bit $pepper_i$ and generates $\hat{h}_i' = H(h_i' || pepper_i)$ until one  matches $h'_i$.
-- The server then sends $seed_i$ to the user for use in 2FA.
-- The user generates a 2FA response $r := PRG(seed_i || now$, where $now$ is rounded down to the nearest minute.
-- The server verifies that this response is valid by computing it again itself.
+- The user will use the salt to generate $h_i := H(password || salt_i)$ and send $h_i$ to the server.
+- The server then tries all possible 8-bit $pepper_i$ and generates $\hat{h}_i' = H(h_i || pepper_i)$ until one  matches $h'_i$.
+- The user sends a 2FA response $r := PRG(seed_i || now)$, where $now$ is rounded down to the nearest minute.
+- The server verifies that this response is valid by computing it itself.
 - The server now generates a DSA keypair $vk_i, sk_i$ and generates a certificate for this user $\sigma_i$ over the fields $(vk_i, id_i)$.
 - The server sends $\sigma_i$ and $sk_i$ to the user.
-- The server stores $(id_i, h_i', salt_i, seed_i)$ in the database.
 
 ### Communication
 
